@@ -52,7 +52,7 @@ try:
         light = read_light() # Call the read_light() function / method and store result in a variable called light_sensor
         sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
         # motion = read_pir() # Call the read_pir() function / method and store result in a variable called motion
-        motion = True
+        motion = False
         print("Reading from: " + str(thingName))
         print("Temperature: " + str(temperature))
         print("Humidity: " + str(humidity))
