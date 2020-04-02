@@ -1,4 +1,5 @@
 import grovepi # Import the grovepi module
+from grovepi import * # Import everything from the grovepi module
 import time # Import the time module
 
 from config import thingName # Import thingName from the config.py configuration file
