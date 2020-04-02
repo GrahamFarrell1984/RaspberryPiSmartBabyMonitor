@@ -37,14 +37,17 @@ def read_sound():
     sound_sensor_value = grovepi.analogRead(sound_sensor) # Read the sound sensor value and store it in a variable called sound_sensor_value
     return sound_sensor_value # Return the value from the sound sensor
 
-while True:
-    temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
-    humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
-    light = read_light() # Call the read_light() function / method and store result in a variable called light_sensor
-    sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
-    print("Reading from: " + str(thingName))
-    print("Temperature: " + str(temperature))
-    print("Humidity: " + str(humidity))
-    print("Light: " + str(light))
-    print("Sound: " + str(sound))
-    time.sleep(1) # Call the sleep() method from the time module and pass in 1 second as a parameter
+try:
+    while condition:
+        temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
+        humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
+        light = read_light() # Call the read_light() function / method and store result in a variable called light_sensor
+        sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
+        print("Reading from: " + str(thingName))
+        print("Temperature: " + str(temperature))
+        print("Humidity: " + str(humidity))
+        print("Light: " + str(light))
+        print("Sound: " + str(sound))
+        time.sleep(1) # Call the sleep() method from the time module and pass in 1 second as a parameter
+except Exception as e:
+    print(e)
