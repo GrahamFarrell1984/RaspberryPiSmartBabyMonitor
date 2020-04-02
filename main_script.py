@@ -42,9 +42,9 @@ while True:
     humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
     light = read_light() # Call the read_light() function / method and store result in a variable called light_sensor
     sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
-    print("Reading from " + str(thingName))
-    print("Reading from " + str(temperature))
-    print("Reading from " + str(humidity))
-    print("Reading from " + str(light))
-    print("Reading from " + str(sound))
+    print("Reading from: " + str(thingName))
+    print("Temperature: " + str(temperature))
+    print("Humidity: " + str(humidity))
+    print("Light: " + str(light))
+    print("Sound: " + str(sound))
     time.sleep(1) # Call the sleep() method from the time module and pass in 1 second as a parameter
