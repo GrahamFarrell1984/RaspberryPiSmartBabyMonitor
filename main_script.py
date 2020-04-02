@@ -13,6 +13,9 @@ grovepi.pinMode(light_sensor,"INPUT") # Set pin mode for port A0 as an input
 sound_sensor = 1 # Connect the Grove Sound Sensor to analog port A1
 grovepi.pinMode(sound_sensor,"INPUT") # Set pin mode for port A1 as an input
 
+pir_sensor = 8 # Connect the Grove PIR Motion Sensor to digital port D8
+grovepi.pinMode(pir_sensor,"INPUT") # Set pin mode for port D8 as an input
+
 # Functions / Methods
 
 # Method to read from temperature sensor
@@ -37,17 +40,25 @@ def read_sound():
     sound_sensor_value = grovepi.analogRead(sound_sensor) # Read the sound sensor value and store it in a variable called sound_sensor_value
     return sound_sensor_value # Return the value from the sound sensor
 
+# Method to read from pir sensor
+def read_pir():
+    pir_sensor_value = grovepi.digitalRead(pir_sensor) # Read the pir sensor value and store it in a variable called pir_sensor_value
+    return pir_sensor_value # Return the value from the pir sensor
+
 try:
     while True:
         temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
         humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
         light = read_light() # Call the read_light() function / method and store result in a variable called light_sensor
         sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
+        # motion = read_pir() # Call the read_pir() function / method and store result in a variable called motion
+        motion = True
         print("Reading from: " + str(thingName))
         print("Temperature: " + str(temperature))
         print("Humidity: " + str(humidity))
         print("Light: " + str(light))
         print("Sound: " + str(sound))
-        time.sleep(1) # Call the sleep() method from the time module and pass in 1 second as a parameter
+        print("Motion detected" if motion else "-")
+        time.sleep(2) # Call the sleep() method from the time module and pass in 2 second as a parameter
 except Exception as e:
     print(e)
