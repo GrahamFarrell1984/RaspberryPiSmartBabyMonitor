@@ -61,7 +61,7 @@ try:
         print("Humidity: " + str(humidity))
         print("Light: " + str(light))
         print("Sound: " + str(sound))
-        print("Motion detected" if motion else "-")
+        print("Motion detected" if motion else "No motion detected")
         time.sleep(2) # Call the sleep() method from the time module and pass in 2 second as a parameter
 except Exception as e:
     print(e)
