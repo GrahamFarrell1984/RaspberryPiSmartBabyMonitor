@@ -46,13 +46,16 @@ def read_pir():
     return pir_sensor_value # Return the value from the pir sensor
 
 try:
+    counter = 0
     while True:
+        counter += 1
         temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
         humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
         light = read_light() # Call the read_light() function / method and store result in a variable called light_sensor
         sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
         # motion = read_pir() # Call the read_pir() function / method and store result in a variable called motion
         motion = False
+        print("While loop has run " + str(counter) + "times" if counter > 1 else "While loop has run " + str(counter) + "time")
         print("Reading from: " + str(thingName))
         print("Temperature: " + str(temperature))
         print("Humidity: " + str(humidity))
