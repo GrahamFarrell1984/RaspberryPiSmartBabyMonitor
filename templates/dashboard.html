@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head>
         <meta charset="utf-8">
@@ -6,5 +6,242 @@
     </head>
     <body>
         <h1>Raspberry Pi Smart Baby Monitor Dashboard</h1>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Raspberry Pi Smart Baby Monitor</title>
+        <link rel = "stylesheet" type = "text/css" href = "style.css" />
+        <script src="https://kit.fontawesome.com/5e2e6a0fd1.js" crossorigin="anonymous"></script>
+        <script src="http://dweet.io/client/dweet.io.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    </head>
+    <body>
+        <h1>Raspberry Pi Smart Baby Monitor <i class="fas fa-baby"></i><i class="fab fa-raspberry-pi"></i></h1>
+        <table>
+          <tr>
+            <th>Thing Name <i class="fas fa-robot"></i></th>
+            <th>Decibels <i class="fas fa-volume-up"></i></th>
+            <th>Light <i class="far fa-lightbulb"></i></th>
+            <th>Temperature <i class="fas fa-thermometer-half"></i></th>
+            <th>Humidity <i class="fas fa-cloud-rain"></i></th>
+            <th>Last Updated <i class="far fa-clock"></i></th>
+          </tr>
+          <tr>
+            <td id="thingNameTableData">---</td>
+            <td id="decibelsTableData">---</td>
+            <td id="lightTableData">---</td>
+            <td id="temperatureTableData">---</td>
+            <td id="humidityTableData">---</td>
+            <td id="lastUpdatedTableData">---</td>
+          </tr>
+        </table>
+        <p id="roomTemperatureStatus">Baby Room Temperature Status: </p>
+        <p id="roomTemperatureMessage">---</p>
+        <p id="roomBrightnessStatus">Baby Room Brightness Status: </p>
+        <p id="roomBrightnessMessage">---</p>
+        <p id="roomNoiseStatus">Baby Room Noise Status: </p>
+        <p id="roomNoiseMessage">---</p>
+        <p id="localStorageErrorMessage"></p>
+        <div id="barChart" style="width:100%;height:500px;"></div>
+        <div id="decibelsChart" style="width:100%;height:500px;"></div>
+        <div id="lightChart" style="width:100%;height:500px;"></div>
+        <div id="temperatureChart" style="width:100%;height:500px;"></div>
+        <div id="humidityChart" style="width:100%;height:500px;"></div>
+
+        <script>
+            $(document).ready(function() {
+                dweetio.listen_for("Raspberry Pi Smart Baby Monitor", function(dweet) {
+
+                    console.log(dweet.thing);
+                    console.log(dweet.content);
+                    console.log(dweet.created);
+
+                    thingName = dweet.thing
+                    decibels = dweet.content["Decibels"]
+                    light = dweet.content["Light"]
+                    temperature = dweet.content["Temperature"]
+                    humidity = dweet.content["Humidity"]
+                    created = dweet.created
+
+                    if (typeof(Storage) !== "undefined") {
+                      // Store information in local storage
+                      localStorage.setItem("thingName", thingName);
+                      localStorage.setItem("decibels", decibels);
+                      localStorage.setItem("light", light);
+                      localStorage.setItem("temperature", temperature);
+                      localStorage.setItem("humidity", humidity);
+                      localStorage.setItem("created", created.toUTCString());
+                      // Retrieve information from local storage
+                      document.getElementById("thingNameTableData").innerHTML = localStorage.getItem("thingName");
+                      document.getElementById("decibelsTableData").innerHTML = localStorage.getItem("decibels") + " dB";
+                      document.getElementById("lightTableData").innerHTML = localStorage.getItem("light") + " lm";
+                      document.getElementById("temperatureTableData").innerHTML = localStorage.getItem("temperature") + " C";
+                      document.getElementById("humidityTableData").innerHTML = localStorage.getItem("humidity") + " %";
+                      document.getElementById("lastUpdatedTableData").innerHTML = localStorage.getItem("created");
+                    } else {
+                      document.getElementById("localStorageErrorMessage").innerHTML = "Sorry, your browser does not support Web Storage...";
+                    }
+
+                    /* Check for room temperature being too hot or too cold. Optimum temperature for the baby is between 20 and 22 degrees Celsius */
+
+                    if(temperature < 20) {
+                        document.getElementById("roomTemperatureMessage").innerHTML = "Warning, the baby room is too cold!";
+                    } else if (temperature > 22) {
+                        document.getElementById("roomTemperatureMessage").innerHTML = "Warning, the baby room is too hot!";
+                    } else {
+                        document.getElementById("roomTemperatureMessage").innerHTML = "The baby room temperature is just right.";
+                    }
+
+                    /* Check for room being too bright or too dark depending on the the sleep time of the baby being 7pm */
+
+                    var date = new Date();
+                    var hours = date.getHours();
+                    if (hours >= 19) {
+                        if (light > 50) {
+                            document.getElementById("roomBrightnessMessage").innerHTML = "Room is too bright!";
+                        } else {
+                            document.getElementById("roomBrightnessMessage").innerHTML = "Room brightness is just right.";
+                        }
+
+                    } else {
+                        document.getElementById("roomBrightnessMessage").innerHTML = "It isn't bed time yet. Room brightness is okay.";
+                    }
+
+                    /* Check for noise levels being too high */
+
+                    if(decibels > 250) {
+                        document.getElementById("roomNoiseMessage").innerHTML = "Warning, there is too much noise in the house!";
+                    } else {
+                        document.getElementById("roomNoiseMessage").innerHTML = "Noise levels in the house are okay.";
+                    }
+
+                    /* All Metrics Bar Chart */
+
+                    var barChartData = [{
+                        x: ['Decibels: ' + decibels, 'Light: ' + light, 'Temperature: ' + temperature, 'Humidity: ' + humidity],
+                        y: [decibels, light, temperature, humidity],
+                        marker:{
+                            color: ['rgba(51,255,51,1)', 'rgba(255,255,51,1)', 'rgba(255,51,51,1)', 'rgba(51,51,255,1)']
+                        },
+                        type: 'bar',
+                        width: [0.1, 0.1, 0.1, 0.1]
+                    }];
+
+                    var layout = {
+                        title: 'All Metrics Bar Chart',
+                        xaxis: {
+                            tickfont: {
+                                size: 14,
+                                color: 'rgb(0, 0, 0)'
+                            }
+                        }
+                    };
+
+                    Plotly.newPlot('barChart', barChartData, layout);
+
+                    /* Decibels Bar Chart */
+
+                    var decibelChartData = [{
+                        x: ['Decibels: ' + decibels],
+                        y: [decibels],
+                        marker:{
+                            color: ['rgba(51,255,51,1)']
+                        },
+                        type: 'bar',
+                        width: [0.1]
+                    }];
+
+                    var layout = {
+                        title: 'Decibels Metrics Bar Chart',
+                        xaxis: {
+                            tickfont: {
+                                size: 14,
+                                color: 'rgb(0, 0, 0)'
+                            }
+                        }
+                    };
+
+                    Plotly.newPlot('decibelsChart', decibelChartData, layout);
+
+                    /* Light Bar Chart */
+
+                    var data = [{
+                        x: ['Light: ' + light],
+                        y: [light],
+                        marker:{
+                            color: ['rgba(255,255,51,1)']
+                        },
+                        type: 'bar',
+                        width: [0.1]
+                    }];
+
+                    var layout = {
+                        title: 'Light Metrics Bar Chart',
+                        xaxis: {
+                            tickfont: {
+                                size: 14,
+                                color: 'rgb(0, 0, 0)'
+                            }
+                        }
+                    };
+
+                    Plotly.newPlot('lightChart', data, layout);
+
+                    /* Temperature Bar Chart */
+
+                    var data = [{
+                        x: ['Temperature: ' + temperature],
+                        y: [temperature],
+                        marker:{
+                            color: ['rgba(255,51,51,1)']
+                        },
+                        type: 'bar',
+                        width: [0.1]
+                    }];
+
+                    var layout = {
+                        title: 'Temperature Metrics Bar Chart',
+                        xaxis: {
+                            tickfont: {
+                                size: 14,
+                                color: 'rgb(0, 0, 0)'
+                            }
+                        }
+                    };
+
+                    Plotly.newPlot('temperatureChart', data, layout);
+
+                    /* Humidity Bar Chart */
+
+                    var data = [{
+                        x: ['Humidity: ' + humidity],
+                        y: [humidity],
+                        marker:{
+                            color: ['rgba(51,51,255,1)']
+                        },
+                        type: 'bar',
+                        width: [0.1]
+                    }];
+
+                    var layout = {
+                        title: 'Humidity Metrics Bar Chart',
+                        xaxis: {
+                            tickfont: {
+                                size: 14,
+                                color: 'rgb(0, 0, 0)'
+                            }
+                        }
+                    };
+
+                    Plotly.newPlot('humidityChart', data, layout);
+
+                });
+            });
+        </script>
     </body>
 </html>
