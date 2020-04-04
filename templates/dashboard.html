@@ -15,7 +15,7 @@
         <meta charset="utf-8">
         <title>Raspberry Pi Smart Baby Monitor</title>
         <link rel = "stylesheet" type = "text/css" href = "style.css" />
-        <script src="https://kit.fontawesome.com/5e2e6a0fd1.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/026028e2f6.js" crossorigin="anonymous"></script>
         <script src="http://dweet.io/client/dweet.io.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -25,17 +25,19 @@
         <table>
           <tr>
             <th>Thing Name <i class="fas fa-robot"></i></th>
-            <th>Decibels <i class="fas fa-volume-up"></i></th>
+            <th>Sound <i class="fas fa-volume-up"></i></th>
             <th>Light <i class="far fa-lightbulb"></i></th>
             <th>Temperature <i class="fas fa-thermometer-half"></i></th>
+            <th>Motion <i class="fas fa-sync-alt"></i>
             <th>Humidity <i class="fas fa-cloud-rain"></i></th>
             <th>Last Updated <i class="far fa-clock"></i></th>
           </tr>
           <tr>
             <td id="thingNameTableData">---</td>
-            <td id="decibelsTableData">---</td>
+            <td id="soundTableData">---</td>
             <td id="lightTableData">---</td>
             <td id="temperatureTableData">---</td>
+            <td id="motionTableData">---</td>
             <td id="humidityTableData">---</td>
             <td id="lastUpdatedTableData">---</td>
           </tr>
@@ -48,9 +50,10 @@
         <p id="roomNoiseMessage">---</p>
         <p id="localStorageErrorMessage"></p>
         <div id="barChart" style="width:100%;height:500px;"></div>
-        <div id="decibelsChart" style="width:100%;height:500px;"></div>
+        <div id="soundsChart" style="width:100%;height:500px;"></div>
         <div id="lightChart" style="width:100%;height:500px;"></div>
         <div id="temperatureChart" style="width:100%;height:500px;"></div>
+        <div id="motionChart" style="width:100%;height:500px;"></div>
         <div id="humidityChart" style="width:100%;height:500px;"></div>
 
         <script>
@@ -62,18 +65,20 @@
                     console.log(dweet.created);
 
                     thingName = dweet.thing
-                    decibels = dweet.content["Decibels"]
+                    sound = dweet.content["Sound"]
                     light = dweet.content["Light"]
                     temperature = dweet.content["Temperature"]
+                    motion = dweet.content["Motion"]
                     humidity = dweet.content["Humidity"]
                     created = dweet.created
 
                     if (typeof(Storage) !== "undefined") {
                       // Store information in local storage
                       localStorage.setItem("thingName", thingName);
-                      localStorage.setItem("decibels", decibels);
+                      localStorage.setItem("sound", sound);
                       localStorage.setItem("light", light);
                       localStorage.setItem("temperature", temperature);
+                      localStorage.setItem("motion", motion);
                       localStorage.setItem("humidity", humidity);
                       localStorage.setItem("created", created.toUTCString());
                       // Retrieve information from local storage
@@ -81,6 +86,7 @@
                       document.getElementById("decibelsTableData").innerHTML = localStorage.getItem("decibels") + " dB";
                       document.getElementById("lightTableData").innerHTML = localStorage.getItem("light") + " lm";
                       document.getElementById("temperatureTableData").innerHTML = localStorage.getItem("temperature") + " C";
+                      document.getElementById("motionTableData").innerHTML = localStorage.getItem("motion");
                       document.getElementById("humidityTableData").innerHTML = localStorage.getItem("humidity") + " %";
                       document.getElementById("lastUpdatedTableData").innerHTML = localStorage.getItem("created");
                     } else {
