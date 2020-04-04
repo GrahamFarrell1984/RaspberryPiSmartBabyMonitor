@@ -1,5 +1,7 @@
 import grovepi # Import the grovepi module
 from grovepi import * # Import everything from the grovepi module
+import dweepy # Import the dweepy module
+from threading import Thread # Import the Thread class from the threading module
 import time # Import the time module
 
 from config import thingName # Import thingName from the config.py configuration file
@@ -45,22 +47,77 @@ def read_pir():
     pir_sensor_value = grovepi.digitalRead(pir_sensor) # Read the pir sensor value and store it in a variable called pir_sensor_value
     return pir_sensor_value # Return the value from the pir sensor
 
-try:
-    counter = 0
-    while True:
-        counter += 1
+# try:
+#     counter = 0
+#     while True:
+#         counter += 1
+#         temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
+#         humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
+#         light = read_light() # Call the read_light() function / method and store result in a variable called light
+#         sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
+#         motion = read_pir() # Call the read_pir() function / method and store result in a variable called motion
+#         print("While loop has run " + str(counter) + " times" if counter > 1 else "While loop has run " + str(counter) + " time")
+#         print("Reading from: " + str(thingName))
+#         print("Temperature: " + str(temperature))
+#         print("Humidity: " + str(humidity))
+#         print("Light: " + str(light))
+#         print("Sound: " + str(sound))
+#         print("Motion detected" if motion else "No motion detected")
+#         time.sleep(2) # Call the sleep() method from the time module and pass in 2 second as a parameter
+# except Exception as e:
+#     print(e)
+
+# Method to listen for dweets from a specific thing called Raspberry Pi Smart Baby Monitor
+# def listen(publisher_thread): # The listen() method takes the publisher thread as a parameter
+#     print(listener_thread_name + " is Listening!") # Print Starting Listening!
+#     global publisher_state # Set publisher state as a global variable
+#     publisher_state = True # Set publisher state to true
+#     # global button_clicked
+#     if not publisher_thread.is_alive(): # If publisher thread is not running execute the following code
+#         publisher_thread.start() # Start publisher thread
+#     for dweet in dweepy.listen_for_dweets_from(thingTwoName): # For loop listens for dweets from a specific thing called GrahamThingTwo
+#         content = dweet["content"] # Store the content from each dweet into a variable called content
+#         print(str(content)) # Print content
+#         try:
+#             button_clicked = content["ButtonClicked"]
+#         except:
+#             print("Button not clicked yet!")
+#         thing = dweet["thing"] # Store the thing from each dweet into a variable called thing
+#         print("Reading from " + str(thing) + ": " + str(content))
+#         print("") # Adds an empty line in the terminal below our output above
+#
+#         # try:
+#         #     if int(button_clicked) == 1: # Check if the button has been pressed
+#         #         brightness = 255 # Set maximum brightness
+#         #         grovepi.analogWrite(led,brightness) # Give PWM output to LED
+#         #     else:
+#         #         brightness = 0 # Set minimum brightness
+#         #         grovepi.analogWrite(led,brightness) # Give PWM output to LED
+#         # except:
+#         #     print("Button still not clicked yet!")
+#     print("Listening Ending!") # Print Listening Ending!
+
+# Method to publish dweets from a specific thing called Raspberry Pi Smart Baby Monitor
+def publish(): # The publish() method takes no parameters
+    print(publisher_thread_name + " is Publishing!") # Print Starting Publishing!
+    while True: # While true execute the following code
+    # while publisher_state: # While publisher state is true execute the following code
         temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
         humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
-        light = read_light() # Call the read_light() function / method and store result in a variable called light_sensor
+        light = read_light() # Call the read_light() function / method and store result in a variable called light
         sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
         motion = read_pir() # Call the read_pir() function / method and store result in a variable called motion
-        print("While loop has run " + str(counter) + " times" if counter > 1 else "While loop has run " + str(counter) + " time")
-        print("Reading from: " + str(thingName))
-        print("Temperature: " + str(temperature))
-        print("Humidity: " + str(humidity))
-        print("Light: " + str(light))
-        print("Sound: " + str(sound))
-        print("Motion detected" if motion else "No motion detected")
+        result = dweepy.dweet_for(thingName, {"Temperature": temperature, "Humidity": humidity, "Light": light, "Sound": sound, "Motion": motion}) # Send a dweet from a specific thing called Raspberry Pi Smart Baby Monitor
+        print(str(thingName) + " published: " + str(result)) # Print the variable called result
         time.sleep(2) # Call the sleep() method from the time module and pass in 2 second as a parameter
-except Exception as e:
-    print(e)
+        print("") # Adds an empty line in the terminal below our output above
+    print("Publishing Ending!") # Print Publishing Ending!
+
+publisher_thread = Thread(target=publish) # Create a new publisher thread passing in the publish() method as a parameter
+# listener_thread = Thread(target=listen, args=(publisher_thread,)) # Create a new listener thread passing in the listen() method and publisher_thread
+
+publisher_thread_name = publisher_thread.getName() # Get publisher thread name
+# listener_thread_name = listener_thread.getName() # Get listener thread name
+
+# listener_thread.start() # Start listener thread
+publisher_thread.start() # Start publisher thread
