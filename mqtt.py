@@ -16,8 +16,8 @@ PUBLISH_CLIENT_ID = "clientId-B8UdQna4HB"
 
 publishing = False
 
-# dht_sensor = 7 # Connect the DHT sensor to digital port D7
-# dht_sensor_type = 0 # Use 0 for the blue-colored sensor
+dht_sensor = 7 # Connect the DHT sensor to digital port D7
+dht_sensor_type = 0 # Use 0 for the blue-colored sensor
 #
 # light_sensor = 0 # Connect the Grove Light Sensor to analog port A0
 # grovepi.pinMode(light_sensor,"INPUT") # Set pin mode for port A0 as an input
@@ -31,18 +31,18 @@ publishing = False
 # Functions / Methods
 
 # Method to read from temperature sensor
-def read_temperature():
-    # [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
-    # temperature = str(temp_sensor_value) # Convert temperature sensor value to a String and store in a variable called temperature
-    # return temperature # Return the temperature value from the dht sensor
-    return 10
-
-# Method to read from humidity sensor
-def read_humidity():
-    # [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
-    # humidity = str(hum_sensor_value) # Convert humidity sensor value to a String and store in a variable called humidity
-    # return humidity # Return the humidity value from the dht sensor
-    return 20
+# def read_temperature():
+#     # [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
+#     # temperature = str(temp_sensor_value) # Convert temperature sensor value to a String and store in a variable called temperature
+#     # return temperature # Return the temperature value from the dht sensor
+#     return 10
+#
+# # Method to read from humidity sensor
+# def read_humidity():
+#     # [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
+#     # humidity = str(hum_sensor_value) # Convert humidity sensor value to a String and store in a variable called humidity
+#     # return humidity # Return the humidity value from the dht sensor
+#     return 20
 
 # Method to read from light sensor
 def read_light():
@@ -62,17 +62,17 @@ def read_pir():
     # return pir_sensor_value # Return the value from the pir sensor
     return 1
 
-# # Method to read from temperature sensor
-# def read_temperature():
-#     [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
-#     temperature = str(temp_sensor_value) # Convert temperature sensor value to a String and store in a variable called temperature
-#     return temperature # Return the temperature value from the dht sensor
-#
-# # Method to read from humidity sensor
-# def read_humidity():
-#     [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
-#     humidity = str(hum_sensor_value) # Convert humidity sensor value to a String and store in a variable called humidity
-#     return humidity # Return the humidity value from the dht sensor
+# Method to read from temperature sensor
+def read_temperature():
+    [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
+    temperature = str(temp_sensor_value) # Convert temperature sensor value to a String and store in a variable called temperature
+    return temperature # Return the temperature value from the dht sensor
+
+# Method to read from humidity sensor
+def read_humidity():
+    [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
+    humidity = str(hum_sensor_value) # Convert humidity sensor value to a String and store in a variable called humidity
+    return humidity # Return the humidity value from the dht sensor
 #
 # # Method to read from light sensor
 # def read_light():
