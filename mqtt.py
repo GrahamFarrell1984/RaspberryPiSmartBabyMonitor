@@ -99,7 +99,7 @@ def publish(publish):
 def start_client(client_id):
     client = mqtt.Client(client_id)
     client.connect(BROKER_ADDRESS)
-    client.on_message=on_message
+    client.on_message = on_message
     return client
 
 def listen(publisher_thread):
