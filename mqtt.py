@@ -114,8 +114,8 @@ def publish(publish):
             sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
             motion = read_pir() # Call the read_pir() function / method and store result in a variable called motion
             print("While loop has run " + str(counter) + " times" if counter > 1 else "While loop has run " + str(counter) + " time")
-            print("Temperature: " + str(temperature))
-            print("Humidity: " + str(humidity))
+            # print("Temperature: " + str(temperature))
+            # print("Humidity: " + str(humidity))
             print("Light: " + str(light))
             print("Sound: " + str(sound))
             print("Motion detected" if motion else "No motion detected")
