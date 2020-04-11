@@ -142,10 +142,13 @@ def listen(publisher_thread):
         client.loop_start()
 
 def main_method():
-    print("Main method called!")
-    publisher_thread = Thread(target=publish) # Create a new publisher thread passing in the publish() method as a parameter
-    listener_thread = Thread(target=listen, args=(publisher_thread,)) # Create a new listener thread passing in the listen() method and publisher_thread
-    listener_thread.start() # Start listener thread
+    try:
+        print("Main method called!")
+        publisher_thread = Thread(target=publish) # Create a new publisher thread passing in the publish() method as a parameter
+        listener_thread = Thread(target=listen, args=(publisher_thread,)) # Create a new listener thread passing in the listen() method and publisher_thread
+        listener_thread.start() # Start listener thread
+    except Exception as e:
+        print("Main method not called!")
 
 if __name__ == '__main__':
     try:
