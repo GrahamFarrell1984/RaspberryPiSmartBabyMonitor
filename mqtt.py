@@ -126,7 +126,7 @@ def publish(publish):
             'motion': motion
         }
         client.publish("GFNCI/PUBLISH", json.dumps(readings))
-        time.sleep(2)
+        time.sleep(5)
 
 def start_client(client_id):
     client = mqtt.Client(client_id)
