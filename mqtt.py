@@ -16,17 +16,17 @@ PUBLISH_CLIENT_ID = "clientId-B8UdQna4HB"
 
 publishing = False
 
-dht_sensor = 7 # Connect the DHT sensor to digital port D7
-dht_sensor_type = 0 # Use 0 for the blue-colored sensor
-
-light_sensor = 0 # Connect the Grove Light Sensor to analog port A0
-grovepi.pinMode(light_sensor,"INPUT") # Set pin mode for port A0 as an input
-
-sound_sensor = 1 # Connect the Grove Sound Sensor to analog port A1
-grovepi.pinMode(sound_sensor,"INPUT") # Set pin mode for port A1 as an input
-
-pir_sensor = 8 # Connect the Grove PIR Motion Sensor to digital port D8
-grovepi.pinMode(pir_sensor,"INPUT") # Set pin mode for port D8 as an input
+# dht_sensor = 7 # Connect the DHT sensor to digital port D7
+# dht_sensor_type = 0 # Use 0 for the blue-colored sensor
+#
+# light_sensor = 0 # Connect the Grove Light Sensor to analog port A0
+# grovepi.pinMode(light_sensor,"INPUT") # Set pin mode for port A0 as an input
+#
+# sound_sensor = 1 # Connect the Grove Sound Sensor to analog port A1
+# grovepi.pinMode(sound_sensor,"INPUT") # Set pin mode for port A1 as an input
+#
+# pir_sensor = 8 # Connect the Grove PIR Motion Sensor to digital port D8
+# grovepi.pinMode(pir_sensor,"INPUT") # Set pin mode for port D8 as an input
 
 # Functions / Methods
 
