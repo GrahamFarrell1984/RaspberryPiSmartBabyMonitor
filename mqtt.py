@@ -108,8 +108,8 @@ def publish(publish):
         counter += 1
         print("Publishing!")
         try:
-            temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
-            humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
+            # temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
+            # humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
             light = read_light() # Call the read_light() function / method and store result in a variable called light
             sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
             motion = read_pir() # Call the read_pir() function / method and store result in a variable called motion
