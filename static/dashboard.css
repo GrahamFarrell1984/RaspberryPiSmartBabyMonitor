@@ -1,0 +1,44 @@
+body {
+  background-color: #1D2228;
+  color: #FB8122;
+  font-family: sans-serif;
+}
+
+p {
+  color: #E1E2E2;
+}
+
+table {
+  width: 100%;
+}
+
+table, th, td {
+  border: 1px solid #E1E2E2;
+  border-collapse: collapse;
+  color: #E1E2E2;
+}
+
+th, td {
+  padding: 5px;
+}
+
+th {
+  text-align: left;
+  color: #FB8122;
+}
+
+i {
+  color: #E1E2E2;
+}
+
+#roomTemperatureStatus {
+    color: #FB8122;
+}
+
+#roomBrightnessStatus {
+    color: #FB8122;
+}
+
+#roomNoiseStatus {
+    color: #FB8122;
+}
