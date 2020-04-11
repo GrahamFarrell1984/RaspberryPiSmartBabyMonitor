@@ -63,16 +63,16 @@ grovepi.pinMode(light_sensor,"INPUT") # Set pin mode for port A0 as an input
 #     return 1
 
 # Method to read from temperature sensor
-def read_temperature():
-    [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
-    temperature = str(temp_sensor_value) # Convert temperature sensor value to a String and store in a variable called temperature
-    return temperature # Return the temperature value from the dht sensor
-
-# Method to read from humidity sensor
-def read_humidity():
-    [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
-    humidity = str(hum_sensor_value) # Convert humidity sensor value to a String and store in a variable called humidity
-    return humidity # Return the humidity value from the dht sensor
+# def read_temperature():
+#     [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
+#     temperature = str(temp_sensor_value) # Convert temperature sensor value to a String and store in a variable called temperature
+#     return temperature # Return the temperature value from the dht sensor
+#
+# # Method to read from humidity sensor
+# def read_humidity():
+#     [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
+#     humidity = str(hum_sensor_value) # Convert humidity sensor value to a String and store in a variable called humidity
+#     return humidity # Return the humidity value from the dht sensor
 
 # Method to read from light sensor
 def read_light():
