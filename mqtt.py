@@ -120,8 +120,8 @@ def publish(publish):
             print("Sound: " + str(sound))
             print("Motion detected" if motion else "No motion detected")
             readings = {
-                'temperature': temperature,
-                'humidity': humidity,
+                # 'temperature': temperature,
+                # 'humidity': humidity,
                 'light': light,
                 'sound': sound,
                 'motion': motion
