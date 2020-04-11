@@ -16,9 +16,9 @@ PUBLISH_CLIENT_ID = "clientId-B8UdQna4HB"
 
 publishing = False
 
-# dht_sensor = 7 # Connect the DHT sensor to digital port D7
-# dht_sensor_type = 0 # Use 0 for the blue-colored sensor
-#
+dht_sensor = 7 # Connect the DHT sensor to digital port D7
+dht_sensor_type = 0 # Use 0 for the blue-colored sensor
+
 light_sensor = 0 # Connect the Grove Light Sensor to analog port A0
 grovepi.pinMode(light_sensor,"INPUT") # Set pin mode for port A0 as an input
 
@@ -32,29 +32,25 @@ grovepi.pinMode(sound_sensor,"INPUT") # Set pin mode for port A1 as an input
 
 # Method to read from temperature sensor
 def read_temperature():
-    # [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
-    # temperature = str(temp_sensor_value) # Convert temperature sensor value to a String and store in a variable called temperature
-    # return temperature # Return the temperature value from the dht sensor
-    return 10
+    [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
+    temperature = str(temp_sensor_value) # Convert temperature sensor value to a String and store in a variable called temperature
+    return temperature # Return the temperature value from the dht sensor
 
 # Method to read from humidity sensor
 def read_humidity():
-    # [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
-    # humidity = str(hum_sensor_value) # Convert humidity sensor value to a String and store in a variable called humidity
-    # return humidity # Return the humidity value from the dht sensor
-    return 20
+    [ temp_sensor_value, hum_sensor_value ] = dht(dht_sensor, dht_sensor_type) # Read the temperature and humidity sensor values
+    humidity = str(hum_sensor_value) # Convert humidity sensor value to a String and store in a variable called humidity
+    return humidity # Return the humidity value from the dht sensor
 
 # Method to read from light sensor
 def read_light():
     light_sensor_value = grovepi.analogRead(light_sensor) # Read the light sensor value and store it in a variable called light_sensor_value
     return light_sensor_value # Return the value from the light sensor
-    # return 30
 
 # Method to read from sound sensor
 def read_sound():
     sound_sensor_value = grovepi.analogRead(sound_sensor) # Read the sound sensor value and store it in a variable called sound_sensor_value
     return sound_sensor_value # Return the value from the sound sensor
-    # return 40
 
 # Method to read from pir sensor
 def read_pir():
@@ -74,16 +70,6 @@ def read_pir():
 #     humidity = str(hum_sensor_value) # Convert humidity sensor value to a String and store in a variable called humidity
 #     return humidity # Return the humidity value from the dht sensor
 
-# Method to read from light sensor
-# def read_light():
-#     light_sensor_value = grovepi.analogRead(light_sensor) # Read the light sensor value and store it in a variable called light_sensor_value
-#     return light_sensor_value # Return the value from the light sensor
-
-# # Method to read from sound sensor
-# def read_sound():
-#     sound_sensor_value = grovepi.analogRead(sound_sensor) # Read the sound sensor value and store it in a variable called sound_sensor_value
-#     return sound_sensor_value # Return the value from the sound sensor
-#
 # # Method to read from pir sensor
 # def read_pir():
 #     pir_sensor_value = grovepi.digitalRead(pir_sensor) # Read the pir sensor value and store it in a variable called pir_sensor_value
