@@ -121,7 +121,7 @@ def publish(publish):
         readings = {
             'temperature': temperature,
             'humidity': humidity,
-            'light': light
+            'light': light,
             'sound': sound,
             'motion': motion
         }
