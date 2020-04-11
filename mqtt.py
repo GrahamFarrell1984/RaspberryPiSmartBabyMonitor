@@ -3,6 +3,8 @@
 # {"Terminate": True}
 # {"Terminate": False}
 
+import grovepi # Import the grovepi module
+from grovepi import * # Import everything from the grovepi module
 import paho.mqtt.client as mqtt
 import time
 from threading import Thread # Import the Thread class from the threading module
