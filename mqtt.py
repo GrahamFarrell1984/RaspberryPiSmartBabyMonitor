@@ -107,26 +107,29 @@ def publish(publish):
         print(publishing)
         counter += 1
         print("Publishing!")
-        temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
-        humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
-        light = read_light() # Call the read_light() function / method and store result in a variable called light
-        sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
-        motion = read_pir() # Call the read_pir() function / method and store result in a variable called motion
-        print("While loop has run " + str(counter) + " times" if counter > 1 else "While loop has run " + str(counter) + " time")
-        print("Temperature: " + str(temperature))
-        print("Humidity: " + str(humidity))
-        print("Light: " + str(light))
-        print("Sound: " + str(sound))
-        print("Motion detected" if motion else "No motion detected")
-        readings = {
-            'temperature': temperature,
-            'humidity': humidity,
-            'light': light,
-            'sound': sound,
-            'motion': motion
-        }
-        client.publish("GFNCI/PUBLISH", json.dumps(readings))
-        time.sleep(2)
+        try:
+            temperature = read_temperature() # Call the read_temperature() function / method and store result in a variable called temperature
+            humidity = read_humidity() # Call the read_humidity() function / method and store result in a variable called humidity
+            light = read_light() # Call the read_light() function / method and store result in a variable called light
+            sound = read_sound() # Call the read_sound() function / method and store result in a variable called sound
+            motion = read_pir() # Call the read_pir() function / method and store result in a variable called motion
+            print("While loop has run " + str(counter) + " times" if counter > 1 else "While loop has run " + str(counter) + " time")
+            print("Temperature: " + str(temperature))
+            print("Humidity: " + str(humidity))
+            print("Light: " + str(light))
+            print("Sound: " + str(sound))
+            print("Motion detected" if motion else "No motion detected")
+            readings = {
+                'temperature': temperature,
+                'humidity': humidity,
+                'light': light,
+                'sound': sound,
+                'motion': motion
+            }
+            client.publish("GFNCI/PUBLISH", json.dumps(readings))
+            time.sleep(2)
+        except Exception as e:
+            raise
 
 def start_client(client_id):
     client = mqtt.Client(client_id)
