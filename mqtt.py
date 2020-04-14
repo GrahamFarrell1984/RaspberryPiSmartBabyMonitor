@@ -25,8 +25,8 @@ grovepi.pinMode(light_sensor,"INPUT") # Set pin mode for port A0 as an input
 sound_sensor = 1 # Connect the Grove Sound Sensor to analog port A1
 grovepi.pinMode(sound_sensor,"INPUT") # Set pin mode for port A1 as an input
 
-# pir_sensor = 8 # Connect the Grove PIR Motion Sensor to digital port D8
-# grovepi.pinMode(pir_sensor,"INPUT") # Set pin mode for port D8 as an input
+pir_sensor = 8 # Connect the Grove PIR Motion Sensor to digital port D8
+grovepi.pinMode(pir_sensor,"INPUT") # Set pin mode for port D8 as an input
 
 # Functions / Methods
 
@@ -54,9 +54,8 @@ def read_sound():
 
 # Method to read from pir sensor
 def read_pir():
-    # pir_sensor_value = grovepi.digitalRead(pir_sensor) # Read the pir sensor value and store it in a variable called pir_sensor_value
-    # return pir_sensor_value # Return the value from the pir sensor
-    return 1
+    pir_sensor_value = grovepi.digitalRead(pir_sensor) # Read the pir sensor value and store it in a variable called pir_sensor_value
+    return pir_sensor_value # Return the value from the pir sensor
 
 def on_message(client, userdata, message):
     print("Message received!")
