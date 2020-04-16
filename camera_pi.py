@@ -3,7 +3,6 @@ import time
 import picamera
 from base_camera import BaseCamera
 
-
 class Camera(BaseCamera):
     @staticmethod
     def frames():
