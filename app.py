@@ -18,7 +18,7 @@ app = Flask(__name__)
 @app.route('/dashboard')
 def index():
     """Video streaming home page."""
-    return render_template('index.html')
+    return render_template('dashboard.html')
 
 
 def gen(camera):
