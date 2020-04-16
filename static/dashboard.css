@@ -31,17 +31,6 @@ i {
   color: #E1E2E2;
 }
 
-.video {
-    max-width: 50%;
-    background-color: red;
-    /* width: 50%; */
-    margin: auto;
-}
-
-h1 {
-    background: red;
-}
-
 #roomTemperatureStatus {
     color: #FB8122;
 }
