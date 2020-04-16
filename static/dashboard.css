@@ -33,6 +33,7 @@ i {
 
 .video {
     max-width: 50%;
+    background-color: red;
     /* width: 50%; */
     margin: auto;
 }
