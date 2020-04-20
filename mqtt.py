@@ -1,7 +1,5 @@
 # {"Publish": True}
 # {"Publish": False}
-# {"Terminate": True}
-# {"Terminate": False}
 
 import grovepi # Import the grovepi module
 from grovepi import * # Import everything from the grovepi module
